@@ -1,0 +1,17 @@
+version: '3'
+services:
+  go-app:
+        container_name: go-app
+        image: "go-app:latest"
+        ports:
+          - "8081:8081"
+  haproxy:
+        container_name: haproxy
+        image: "haproxy:2.3"
+        ports:
+          - "80:80"
+        volumes:
+          - ./haproxy:/haproxy-override
+          - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+          - ./haproxy/rates.map:/usr/local/etc/haproxy/rates.map:ro
+  
